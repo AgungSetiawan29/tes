@@ -1,0 +1,76 @@
+Containerd adalah sebuah proyek open-source yang merupakan runtime container tingkat rendah yang digunakan untuk mengelola siklus hidup container. Containerd awalnya dikembangkan oleh Docker dan kemudian disumbangkan ke Cloud Native Computing Foundation (CNCF) pada tahun 2017. Containerd digunakan oleh berbagai platform container seperti Docker, Kubernetes, dan lainnya sebagai komponen inti untuk menjalankan dan mengelola container.
+Fitur Utama Containerd
+1.	Manajemen Image:
+o	Containerd memiliki fitur untuk mendownload, meng-cache, dan mengelola container images dari registry Docker atau dari penyimpanan lainnya.
+2.	Manajemen Container:
+o	Containerd menyediakan API untuk membuat, menjalankan, menghentikan, dan menghapus container.
+3.	Manajemen Storage:
+o	Mengelola sistem file container dengan menggunakan snapshotters, yang memungkinkan untuk mendukung berbagai sistem file dan format image.
+4.	Event Logging:
+o	Containerd menyediakan mekanisme untuk mencatat event container, sehingga memudahkan monitoring dan debugging.
+5.	Pluggable Architecture:
+o	Containerd memiliki arsitektur modular yang memungkinkan integrasi dengan plugin eksternal untuk fitur tambahan, seperti plugin networking atau runtime yang berbeda.
+6.	Support untuk CRI:
+o	Containerd mendukung Kubernetes Container Runtime Interface (CRI) melalui CRI plugin, yang memungkinkan integrasi yang lebih baik dengan Kubernetes.
+
+
+Komponen Utama dalam Containerd
+1.	Containerd Daemon:
+o	Proses utama yang berjalan di latar belakang dan bertanggung jawab atas semua operasi terkait container.
+2.	runc:
+o	Ini adalah alat untuk menjalankan container yang sepenuhnya kompatibel dengan Open Container Initiative (OCI). Containerd menggunakan runc sebagai default runtime untuk menjalankan container.
+3.	CRI Plugin:
+o	Plugin ini memungkinkan Containerd untuk digunakan sebagai runtime di Kubernetes, menggantikan Docker sebagai runtime container.
+Penggunaan Containerd
+Containerd biasanya digunakan oleh platform yang memerlukan manajemen container tingkat rendah dengan kinerja tinggi dan overhead rendah. Kubernetes menggunakan Containerd sebagai salah satu opsi default untuk runtime container, menggantikan Docker dengan lebih langsung mengakses fungsi-fungsi yang disediakan oleh Containerd.
+Perbandingan dengan Docker
+Meskipun Docker dan Containerd berhubungan erat, ada perbedaan yang signifikan:
+•	Docker adalah solusi end-to-end yang mencakup CLI, API, image management, dan runtime container.
+•	Containerd fokus pada manajemen siklus hidup container, tanpa antarmuka pengguna (CLI) dan fitur tambahan yang ditawarkan Docker.
+Dengan pemisahan ini, Containerd memberikan fondasi yang ringan dan dapat diandalkan untuk platform yang membutuhkan manajemen container dengan fleksibilitas dan kinerja tinggi.
+
+
+Kapan Menggunakan Containerd?
+Containerd sangat ideal untuk digunakan dalam konteks:
+•	Kubernetes: Sebagai runtime container yang mendukung CRI.
+•	Proyek cloud-native: Yang membutuhkan runtime container yang efisien dan dapat diandalkan.
+•	Embedded Systems: Karena ukurannya yang lebih kecil dibandingkan dengan Docker, Containerd dapat digunakan di lingkungan dengan sumber daya terbatas.
+Containerd merupakan solusi penting dalam ekosistem cloud-native dan merupakan fondasi untuk pengembangan container modern yang scalable dan reliable.
+CARA MENJALANKAN CONTAINER
+Berikut adalah langkah-langkah untuk membuat dan menjalankan satu contoh container menggunakan Containerd. Dalam contoh ini, kita akan membuat container sederhana yang menjalankan aplikasi berbasis Python yang menampilkan pesan "Hello, Containerd!".
+Langkah 1: Install Containerd
+Jika belum, install Containerd di sistem Anda:
+ 
+Langkah 2: Siapkan Dockerfile
+Buat sebuah direktori untuk menyimpan Dockerfile dan skrip Python:
+ 
+
+
+
+
+
+Buat file bernama Dockerfile dengan isi berikut:
+ 
+Langkah 3: Buat Skrip Python
+Buat file bernama app.py di dalam direktori yang sama dengan isi berikut:
+ 
+Langkah 4: Build Image Menggunakan Docker
+Containerd tidak memiliki alat untuk membangun image dari Dockerfile. Namun, Anda bisa menggunakan Docker untuk membangun image, lalu mengimpor image tersebut ke Containerd. Pastikan Docker sudah terinstal, lalu jalankan perintah berikut:
+ 
+Ini akan membuat image dengan nama hello-containerd.
+Langkah 5: Ekspor dan Impor Image ke Containerd
+Setelah image dibangun dengan Docker, ekspor image tersebut ke file tar dan impor ke Containerd:
+1.	Ekspor Image:
+ 
+2.	Impor Image ke Containerd
+ 
+
+Langkah 6: Jalankan Container dengan Containerd
+Sekarang, jalankan container menggunakan Containerd dengan perintah berikut:
+ 
+Perintah ini akan menjalankan container dengan nama hello-containerd-container dan menampilkan output dari skrip Python, yaitu "Hello, Containerd!".
+Langkah 7: Verifikasi
+Setelah menjalankan perintah di atas, Anda akan melihat output "Hello, Containerd!" di terminal Anda. Ini menunjukkan bahwa container berhasil berjalan dan menjalankan skrip Python sesuai yang diinginkan.
+Kesimpulan
+Dalam contoh ini, kita membuat sebuah container sederhana yang menjalankan skrip Python menggunakan Containerd. Dengan pendekatan ini, Anda dapat melihat bagaimana Containerd dapat digunakan untuk menjalankan aplikasi dalam container, meskipun masih membutuhkan Docker untuk membangun image jika belum memiliki CI/CD pipeline atau alat build lain yang mendukung Containerd secara langsung.
+
